@@ -38,8 +38,8 @@ class Application  : public JUCEApplication
 public:
     Application() { }
 
-    const String getApplicationName()    override { return ProjectInfo::projectName; }
-    const String getApplicationVersion() override { return ProjectInfo::versionString; }
+    const String getApplicationName()    override { return "KSP1"; }
+    const String getApplicationVersion() override { return "0.0.1"; }
     bool moreThanOneInstanceAllowed()    override { return false; }
 
     void initialise (const String& commandLine) override

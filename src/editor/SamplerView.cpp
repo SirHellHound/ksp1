@@ -67,7 +67,7 @@ SamplerView::SamplerView ()
     layerKeyButton->setColour (TextButton::buttonOnColourId, Colour (0xfffcab36));
 
     addAndMakeVisible (articulationGroup = new GroupComponent ("articulationGroup",
-                                                               String::empty));
+                                                               String()));
     articulationGroup->setColour (GroupComponent::outlineColourId, Colour (0x00777777));
     articulationGroup->setColour (GroupComponent::textColourId, Colour (0xffcdcdcd));
 

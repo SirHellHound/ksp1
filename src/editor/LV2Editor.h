@@ -22,9 +22,10 @@
 
 #include "KSP1.h"
 #include "editor/SamplerView.h"
-#include "../../libs/lvtk/lvtk/ui.hpp"
-#include "../../libs/lvtk/lvtk/ext/atom.hpp"
-#include "../../libs/lvtk/lvtk/ext/idle_interface.hpp"
+#include "lvtk/ui.hpp"
+#include "lvtk/ext/atom.hpp"
+#include "lvtk/ext/idle_interface.hpp"
+#include "lvtk/ext/instance_access.hpp"
 
 namespace Element {
     class Style;

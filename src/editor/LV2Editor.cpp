@@ -109,6 +109,7 @@ LV2Editor::LV2Editor (const char* plugin)
    #endif
     peaks = new AudioPeakFactory();
 
+    DBG(this->uri());
     // setup the forge and URIs objects
     URIs::MapFunc map = std::bind (&LV2Editor::map, this, _1);
     uris  = new URIs (map);
@@ -331,6 +332,7 @@ DisplayView* LV2Editor::create_view()
 
 }}
 
-#include "../../libs/lvtk/src/ui.cpp"
+
 const unsigned ksp1ui_x11  = KSP1::Gui::LV2Editor::register_class ("http://kushview.net/ns/ksp1/ui/x11");
 const unsigned ksp1ui_juce = KSP1::Gui::LV2Editor::register_class ("http://kushview.net/ns/ksp1/ui/juce");
+#include "../../libs/lvtk/src/ui.cpp"

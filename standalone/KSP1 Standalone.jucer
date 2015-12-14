@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="gPa4hq" name="KSP1 Standalone" projectType="guiapp" version="1.0.0"
               bundleIdentifier="com.yourcompany.KSP1Standalone" includeBinaryInAppConfig="1"
-              jucerVersion="3.1.1">
+              jucerVersion="4.0.2">
   <MAINGROUP id="DZcnxR" name="KSP1 Standalone">
     <GROUP id="{2EDD76D6-D8BA-22FA-92C9-906205CC75CA}" name="src">
       <FILE id="LF1m1M" name="ADSR.cpp" compile="1" resource="0" file="../src/ADSR.cpp"/>
@@ -182,7 +182,8 @@
              androidSDKPath="${user.home}/SDKs/android-sdk" androidNDKPath="${user.home}/SDKs/android-ndk"
              androidMinimumSDK="8" androidInternetNeeded="1" androidKeyStore="${user.home}/.android/debug.keystore"
              androidKeyStorePass="android" androidKeyAlias="androiddebugkey"
-             androidKeyAliasPass="android" androidCpp11="1" androidVersionCode="1">
+             androidKeyAliasPass="android" androidCpp11="1" androidVersionCode="1"
+             androidBluetoothNeeded="1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" androidArchitectures="armeabi armeabi-v7a" isDebug="1"
                        optimisation="1" targetName="KSP1 Standalone"/>

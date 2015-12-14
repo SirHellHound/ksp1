@@ -61,7 +61,15 @@ AudioEngine::AudioEngine (World& w)
     impl = new Impl (w);
 }
 
-AudioEngine::~AudioEngine() { }
+AudioEngine::~AudioEngine()
+{
+    if(auto* proc = impl->callback.getCurrentProcessor())
+    {
+        impl->callback.setProcessor(nullptr);
+        delete proc;
+    }
+    impl = nullptr;
+}
 
 AudioIODeviceCallback& AudioEngine::callback() { return impl->callback; }
 MidiInputCallback& AudioEngine::getMidiInputCallback() { return impl->callback; }

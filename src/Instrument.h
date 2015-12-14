@@ -32,7 +32,7 @@ namespace KSP1 {
     static inline Identifier fxSendIdentifier (int sendNumber)
     {
         static const Identifier fxSendSlug      = "fxSend";
-        String s (fxSendSlug);
+        String s (fxSendSlug.toString());
         s << String("-") << String (sendNumber);
         return Identifier (s);
     }

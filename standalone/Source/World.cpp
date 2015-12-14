@@ -11,6 +11,13 @@ public:
 
     }
 
+    ~Impl() {
+        devices->closeAudioDevice();
+        devices = nullptr;
+        engine  = nullptr;
+        plugins = nullptr;
+    }
+
     void init()
     {
         plugins = new PluginManager();

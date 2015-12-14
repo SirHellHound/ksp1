@@ -21,7 +21,7 @@
 #define KSP1_H_INCLUDED
 
 #if HAVE_JUCE_CORE
- #include <juce/JuceHeader.h>
+ #include <juce/juce.h>
  #define JUCE_MODULE_AVAILABLE_element_base 1
  #include "modules/element_base/element_base.h"
 
