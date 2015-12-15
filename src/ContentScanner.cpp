@@ -26,7 +26,7 @@ ContentScanner::ContentScanner (Database& _db)
     : db (_db)
 { }
 
-ContentScanner::~ContentScanner() {}
+ContentScanner::~ContentScanner() { }
 
 void ContentScanner::scanLocation (const File &dir)
 {
@@ -63,7 +63,7 @@ void ContentScanner::scanLocation (const File &dir)
         query << "('" << file.getFileNameWithoutExtension() << "', '" << relPath << "', '" << assetType << "')";
 
         ++recordNum;
-        
+
         if (recordNum == numRecords)
         {
             query << ";";
@@ -80,7 +80,7 @@ void ContentScanner::scanLocation (const File &dir)
     {
         query = query.upToLastOccurrenceOf (", ", false, false);
         query << ";";
-        
+
         db.executeUpdate (query);
     }
 }

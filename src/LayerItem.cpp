@@ -18,7 +18,6 @@
 */
 
 #include "Instrument.h"
-
 namespace KSP1 {
 
 LayerItem::LayerItem (const ValueTree& data)

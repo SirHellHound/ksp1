@@ -60,7 +60,7 @@ def check_cxx11 (self, required=False):
     self.line_just = line_just
 
 @conf
-def check_juce_cfg (self, mods=None, major_version='4', mandatory=False):
+def check_juce_cfg (self, mods=None, major_version='4', module_prefix='juce_', mandatory=False):
     if mods == None: modules = '''
         juce_audio_basics
         juce_audio_devices
@@ -83,8 +83,8 @@ def check_juce_cfg (self, mods=None, major_version='4', mandatory=False):
 
     for mod in modules:
         mod = mod.replace('-', '_')
-        if not mod[:5] == 'juce_':
-            mod = 'juce_' + mod
+        if not mod[:len(module_prefix)] == module_prefix:
+            mod = module_prefix + mod
         if self.options.debug:
             mod += '_debug'
         pkgslug = '%s-%s' % (mod.replace ('_', '-'), major_version)

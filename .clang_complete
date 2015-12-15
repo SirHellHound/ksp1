@@ -1,0 +1,7 @@
+-I/usr/local/include/juce-4
+-I/usr/local/include/lilv-0
+-I./src
+-I./libs/element
+-DCOMPLETION=1
+-DJUCE_DEBUG=1
+-DHAVE_JUCE_CORE

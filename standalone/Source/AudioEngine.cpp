@@ -32,6 +32,7 @@ public:
         PluginDescription desc;
         desc.pluginFormatName = "LV2";
         desc.fileOrIdentifier = KSP1_URI;
+//        desc.fileOrIdentifier = "http://lv2plug.in/plugins/eg-amp";
 
         auto* plug = plugins.createPlugin (desc, error);
 

@@ -44,7 +44,7 @@ public:
 static Array<LV2Plugin*> sPlugins;
 
 LV2Plugin::LV2Plugin (double _sampleRate)
-    : LV2PluginType (2),
+    : LV2PluginType (4),
       sampleRate (_sampleRate), lastGain (1.0f),
       wasRestored (0)
 {

@@ -95,6 +95,7 @@ def configure (conf):
                     'audio-processors', 'audio-utils', 'data-structures', \
                     'gui-basics', 'gui-extra', 'audio-utils', 'opengl', \
                     'cryptography'])
+        conf.check_juce_cfg(['base', 'engines', 'lv2', 'models', 'gui'], 0, 'element_', True)
 
         conf.check(features='c cxx cxxprogram', lib=['dl'], cflags=['-Wall'], uselib_store='DL')
         conf.check(features='c cxx cxxprogram', lib=['pthread'], cflags=['-Wall'], uselib_store='PTHREAD')
@@ -161,8 +162,7 @@ def element_ui_modules():
             'libs/element/modules/element_models/element_models.cpp']
 
 def ui_use_flags():
-    return ['libsqlite3', 'PTHREAD', 'LILV', 'SUIL', 'X11', 'XEXT',
-       'ALSA', 'FREETYPE2', 'GL', 'EGL', 'GLESV2', 'XCB', \
+    return ['libsqlite3', 'LILV', 'SUIL', 'ELEMENT_BASE', 'ELEMENT_GUI', 'ELEMENT_LV2', \
        'JUCE_CORE', 'JUCE_AUDIO_BASICS', 'JUCE_AUDIO_DEVICES', \
        'JUCE_AUDIO_FORMATS', 'JUCE_GUI_BASICS', 'JUCE_DATA_STRUCTURES', \
        'JUCE_AUDIO_PROCESSORS', 'JUCE_AUDIO_UTILS', 'JUCE_CRYPTOGRAPHY', \
@@ -189,16 +189,17 @@ def build (bld):
     plugin_dir = bld.env.PREFIX + '/lib/lv2/ksp1.lv2'
 
     plugin_environ = bld.env.derive()
-    plugin_environ.cshlib_PATTERN = plugin_environ.cxxshlib_PATTERN = \
-        bld.env.plugin_PATTERN
-    ui_environ = plugin_environ.derive()
+    ui_environ = bld.env.derive()
+    plugin_environ.cshlib_PATTERN = plugin_environ.cxxshlib_PATTERN = bld.env.plugin_PATTERN
+    ui_environ.cxxshlib_PATTERN = ui_environ.cshlib_PATTERN = bld.env.plugin_PATTERN
 
     p = juce.IntrojucerProject (bld, 'standalone/KSP1 Standalone.jucer');
 
     if bld.env.KSP1_BUILD_PLUGINS:
-        plugin = bld.shlib (
+        bld.shlib (
             source = plugin_source,
-            includes = ['src', 'libs/lvtk', 'libs/element'],
+            includes = ['src', 'libs/lvtk'] + \
+                   bld.env.INCLUDES_LILV + bld.env.INCLUDES_SUIL + bld.env.INCLUDES_ELEMENT_BASE,
             name = 'ksp1_plugin',
             target = 'plugins/ksp1.lv2/plugin',
             use = ['libsqlite3', 'JUCE_CORE'],
@@ -209,16 +210,14 @@ def build (bld):
 
         bld.add_group()
 
-        ui = bld.shlib (
+        bld.shlib (
             source = bld.path.ant_glob ('src/*.cpp') +
-                     bld.path.ant_glob ('src/editor/*.cpp') +
-                     element_ui_modules(),
+                     bld.path.ant_glob ('src/editor/*.cpp'),
             includes = ['src', 'libs/lvtk'],
             name = 'ksp1_ui',
             target = 'plugins/ksp1.lv2/ui',
             use = ui_use_flags(),
-            cxxflags = ['-DKSP1_STANDALONE=1', '-DJUCE_MODULE_AVAILABLE_element_engines=1'],
-            linkflags = ['-lpthread'],
+            cxxflags = ['-DKSP1_STANDALONE=1'],
             install_path = plugin_dir,
             env = ui_environ
         )
@@ -244,12 +243,11 @@ def build (bld):
     if bld.env.KSP1_BUILD_APPS:
         environ = bld.env.derive()
         standalone = bld.program (
-            source = bld.path.ant_glob ('standalone/Source/**/*.cpp') +
-                     element_ui_modules(),
-            includes = ['libs/element', 'standalone/Source', \
-                        'libs/lvtk', 'jucer/Source', 'src'],
+            source = bld.path.ant_glob ('standalone/Source/**/*.cpp'),
+            includes = ['standalone/Source', 'src'],
             target = 'bin/ksp1',
-            use = ui_use_flags(),
-            cxxflags = ['-DKSP1_STANDALONE=1', '-DJUCE_MODULE_AVAILABLE_element_engines=1'],
+            use = ui_use_flags() + ['ELEMENT_ENGINES'],
+            linkflags = ['-lcurl'],
+            cxxflags = ['-DKSP1_STANDALONE=1'],
             env = environ
         )

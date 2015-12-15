@@ -20,20 +20,17 @@
 #ifndef KSP1_H_INCLUDED
 #define KSP1_H_INCLUDED
 
+#if KSP1_STANDALONE && KSP1_BUILD_LV2
+ #error only one of these can be defined
+#endif
+
 #if HAVE_JUCE_CORE
  #include <juce/juce.h>
- #define JUCE_MODULE_AVAILABLE_element_base 1
- #include "modules/element_base/element_base.h"
-
  #if KSP1_STANDALONE
-//  #define JUCE_MODULE_AVAILABLE_element_engines 1
-  #define JUCE_MODULE_AVAILABLE_element_gui 1
-  #define JUCE_MODULE_AVAILABLE_element_lv2 1
-  #define JUCE_MODULE_AVAILABLE_element_models 1
-  #include "modules/element_engines/element_engines.h"
-  #include "modules/element_gui/element_gui.h"
-  #include "modules/element_lv2/element_lv2.h"
-  #include "modules/element_models/element_models.h"
+  #include <element/element.h>
+ #elif KSP1_BUILD_LV2
+  #include <element/modules/config.h>
+  #include <element/modules/element_base/element_base.h>
  #endif
 
 #else

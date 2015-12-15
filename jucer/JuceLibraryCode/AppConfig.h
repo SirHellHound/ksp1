@@ -16,7 +16,7 @@
 
 //==============================================================================
 // [BEGIN_USER_CODE_SECTION]
-
+#error nope
 #define JUCE_USE_X11 1
 #define JUCE_USE_XEVENTS 1
 #define JUCE_USE_EGL 0

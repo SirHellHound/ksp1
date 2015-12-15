@@ -7,7 +7,7 @@
 #define __JUCE_HEADER_7FF0250E2BF56D64__
 
 //[Headers]
-#include "JuceHeader.h"
+#include "KSP1.h"
 //[/Headers]
 
 

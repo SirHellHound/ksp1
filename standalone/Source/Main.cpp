@@ -1,28 +1,21 @@
 
+
 #include "KSP1.h"
+#include <string>
+#include <map>
 #include "AppController.h"
-#include "PluginProcessor.h"
-#include "URIs.h"
 #include "World.h"
-
-
 #include "MainWindow.h"
-
 
 namespace KSP1 {
 
 void updateLv2Path()
 {
-#if JUCE_DEBUG
     const File appFile = File::getSpecialLocation (File::invokedExecutableFile);
     String path = appFile.getParentDirectory().getParentDirectory().getChildFile("plugins").getFullPathName();
-
-    DBG("before path:" << appFile.getFullPathName());
-
     path << ":/usr/local/lib/lv2:/usr/lib/lv2:" << getenv("HOME") << "/.lv2";
     setenv ("LV2_PATH", path.toRawUTF8(), 1);
     DBG("LV2_PATH=" << getenv("LV2_PATH"));
-#endif
 }
 
 struct CommandLine {
@@ -36,17 +29,32 @@ struct CommandLine {
 class Application  : public JUCEApplication
 {
 public:
-    Application() { }
+    Application() {  }
 
     const String getApplicationName()    override { return "KSP1"; }
     const String getApplicationVersion() override { return "0.0.1"; }
     bool moreThanOneInstanceAllowed()    override { return false; }
 
+    void initializeForDevelopment (CommandLine cli)
+    {
+       DBG("fullScreen: " << cli.fullScreen);
+
+       #if JUCE_DEBUG
+        // This is a stupid hack where lvtk::Plugin crashes when
+        // compiled with debug flags set in this project or the
+        // element modules
+        std::map<std::string, void*> m;
+        m["initialize a map"] = nullptr;
+
+        updateLv2Path();
+       #endif
+    }
+
     void initialise (const String& commandLine) override
     {
         CommandLine cli (commandLine);
+        initializeForDevelopment (cli);
 
-        updateLv2Path();
         world = new World();
         world->init();
         app = new AppController (*world);
@@ -61,6 +69,7 @@ public:
     void shutdown() override
     {
         mainWindow = nullptr;
+        app = nullptr;
         world = nullptr;
     }
 
@@ -71,7 +80,7 @@ public:
 
     void anotherInstanceStarted (const String& commandLine) override { }
 
-    bool launchEngine (CommandLine cli)
+    bool launchEngine (CommandLine)
     {
         DeviceManager& devices (world->getDevices());
         const String err (devices.initialiseWithDefaultDevices (2, 2));

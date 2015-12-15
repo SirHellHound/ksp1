@@ -52,6 +52,7 @@ namespace KSP1 {
               objectID (oid), parentID (parent)
         {
             slugUsedAsId = Tags::id;
+            
         }
 
         ForgeRef writeAtomObject()

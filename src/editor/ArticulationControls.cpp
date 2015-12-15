@@ -20,7 +20,7 @@
 */
 
 //[Headers]
-#include "JuceHeader.h"
+#include "KSP1.h"
 #include "../Articulation.h"
 #include "../Types.h"
 //[/Headers]
