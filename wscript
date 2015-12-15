@@ -154,19 +154,17 @@ def build_sqlite3 (bld):
         install_path = None
     )
 
-def element_ui_modules():
-    return ['libs/element/modules/element_base/element_base.cpp',
-            'libs/element/modules/element_engines/element_engines.cpp',
-            'libs/element/modules/element_gui/element_gui.cpp',
-            'libs/element/modules/element_lv2/element_lv2.cpp',
-            'libs/element/modules/element_models/element_models.cpp']
-
 def ui_use_flags():
     return ['libsqlite3', 'LILV', 'SUIL', 'ELEMENT_BASE', 'ELEMENT_GUI', 'ELEMENT_LV2', \
        'JUCE_CORE', 'JUCE_AUDIO_BASICS', 'JUCE_AUDIO_DEVICES', \
        'JUCE_AUDIO_FORMATS', 'JUCE_GUI_BASICS', 'JUCE_DATA_STRUCTURES', \
        'JUCE_AUDIO_PROCESSORS', 'JUCE_AUDIO_UTILS', 'JUCE_CRYPTOGRAPHY', \
        'JUCE_OPENGL']
+
+def derive_plugin_environ(bld):
+    e = bld.env.derive()
+    e.cshlib_PATTERN = e.cxxshlib_PATTERN = bld.env.plugin_PATTERN
+    return e
 
 def build (bld):
     build_sqlite3 (bld)
@@ -188,14 +186,9 @@ def build (bld):
 
     plugin_dir = bld.env.PREFIX + '/lib/lv2/ksp1.lv2'
 
-    plugin_environ = bld.env.derive()
-    ui_environ = bld.env.derive()
-    plugin_environ.cshlib_PATTERN = plugin_environ.cxxshlib_PATTERN = bld.env.plugin_PATTERN
-    ui_environ.cxxshlib_PATTERN = ui_environ.cshlib_PATTERN = bld.env.plugin_PATTERN
-
     p = juce.IntrojucerProject (bld, 'standalone/KSP1 Standalone.jucer');
-
     if bld.env.KSP1_BUILD_PLUGINS:
+        plugin_environ = derive_plugin_environ(bld)
         bld.shlib (
             source = plugin_source,
             includes = ['src', 'libs/lvtk'] + \
@@ -210,6 +203,7 @@ def build (bld):
 
         bld.add_group()
 
+        ui_environ = derive_plugin_environ(bld)
         bld.shlib (
             source = bld.path.ant_glob ('src/*.cpp') +
                      bld.path.ant_glob ('src/editor/*.cpp'),
