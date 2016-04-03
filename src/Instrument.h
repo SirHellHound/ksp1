@@ -27,6 +27,9 @@
 #include "Programming.h"
 #include "engine/SamplerKeys.h"
 
+//!!!!
+#include "session/ClipModel.h"
+
 namespace KSP1 {
 
     static inline Identifier fxSendIdentifier (int sendNumber)

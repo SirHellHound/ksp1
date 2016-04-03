@@ -21,6 +21,8 @@
 #define KSP1_MEDIA_OBJECT_H
 
 #include "KSP1.h"
+//!!!
+#include "session/MediaModel.h"
 
 namespace KSP1 {
 

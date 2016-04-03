@@ -47,6 +47,7 @@
 
 #endif
 
+#include "session/AssetTree.h"
 namespace KSP1
 {
     using namespace Element;
