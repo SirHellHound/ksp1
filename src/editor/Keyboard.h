@@ -22,6 +22,7 @@
 
 #include "editor/MidiKeyboardComponent.h"
 #include "editor/ComponentMixin.h"
+#include "Signals.h"
 
 namespace KSP1 {
 namespace Gui {

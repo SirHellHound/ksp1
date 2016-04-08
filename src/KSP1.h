@@ -47,6 +47,7 @@
 
 #endif
 
+#include "Signals.h"
 #include "session/AssetTree.h"
 namespace KSP1
 {

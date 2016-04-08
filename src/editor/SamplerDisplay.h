@@ -29,6 +29,7 @@
 #include "Instrument.h"
 #include "KSP1.h"
 #include "Controller.h"
+#include "Signals.h"
 
 namespace KSP1 {
     class SamplerInterface;

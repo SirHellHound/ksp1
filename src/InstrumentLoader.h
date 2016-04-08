@@ -21,6 +21,7 @@
 #define KSP1_INSTRUMENT_LOADER_H
 
 #include "KSP1.h"
+#include "Signals.h"
 
 namespace juce {
     class File;

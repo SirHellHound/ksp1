@@ -20,6 +20,7 @@
 #ifndef KSP1_SCREENS_H
 #define KSP1_SCREENS_H
 
+#include <boost/signals2/signal.hpp>
 #include "KSP1.h"
 
 namespace KSP1 {
@@ -92,7 +93,6 @@ namespace Gui {
 
         friend class Display;
         boost::signals2::connection displayConnection;
-
     };
 
     template <class CompType>

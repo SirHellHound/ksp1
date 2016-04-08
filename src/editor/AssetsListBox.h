@@ -20,6 +20,7 @@
 #ifndef KSP1_ASSETS_LIST_BOX_H
 #define KSP1_ASSETS_LIST_BOX_H
 
+#include <boost/signals2/signal.hpp>
 #include "KSP1.h"
 
 namespace KSP1 {
@@ -32,7 +33,6 @@ namespace Gui {
                           //public DragAndDropContainer
     {
     public:
-
         typedef boost::signals2::signal<void(const AssetItem&)> AssetSignal;
         AssetSignal signalSelected;
 
