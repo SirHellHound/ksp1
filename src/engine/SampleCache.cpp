@@ -149,7 +149,7 @@ BufferPtr SampleCache::loadAudioFile (const File& sampleFile)
 
 TimeSliceThread* SampleCache::nextThread()
 {
-    assert (threads.size() > 0);
+    jassert (threads.size() > 0);
     return threads.getUnchecked(0);
 }
 

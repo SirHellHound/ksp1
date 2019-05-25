@@ -37,7 +37,7 @@ public:
 
     LayeringMode (const int32& m)
     {
-        assert (m < VelocityRange + 1);
+        jassert (m < VelocityRange + 1);
         mode = static_cast<ID> (m);
     }
 
