@@ -2,7 +2,3 @@
 	path = libs/lvtk
 	url = https://github.com/lvtk/lvtk.git
 	branch = master
-[submodule "libs/lv2"]
-	path = libs/lv2
-	url = https://github.com/drobilla/lv2.git
-	branch = master
